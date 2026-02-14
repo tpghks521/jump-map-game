@@ -33,6 +33,7 @@ let direction = new THREE.Vector3();
 let isOnGround = false;
 let currentPlatform = null;
 let canJump = true;
+let checkpointReached = false;
 
 // === CONTROLS STATE ===
 let controls = {
@@ -293,6 +294,9 @@ function loadStage(stageNumber) {
 
     // Clear previous stage
     clearStage();
+
+    // Reset checkpoint flag
+    checkpointReached = false;
 
     // Define stages
     const stageConfig = getStageConfig(stageNumber);
@@ -900,11 +904,12 @@ function checkGroundCollision() {
 }
 
 function checkCheckpointCollision() {
-    if (!checkpoint) return;
+    if (!checkpoint || checkpointReached) return;
 
     const distance = camera.position.distanceTo(checkpoint.position);
     if (distance < 3) {
         // Reached checkpoint!
+        checkpointReached = true;
         currentStage++;
         if (currentStage > totalStages) {
             victory();
