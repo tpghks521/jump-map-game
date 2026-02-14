@@ -463,9 +463,9 @@ function getStageConfig(stageNumber) {
             name: "움직이는 발판",
             platforms: [
                 { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
-                { type: 'moving', position: [0, 2, -7], size: [3, 0.5, 3], moveData: { endX: 5, endY: 2, endZ: -7, speed: 1.5 } },
+                { type: 'moving', position: [0, 2, -7], size: [3, 0.5, 3], moveData: { endX: 5, endY: 2, endZ: -7, speed: 0.8 } },
                 { type: 'normal', position: [8, 3, -12], size: [3, 0.5, 3] },
-                { type: 'moving', position: [-5, 5, -17], size: [3, 0.5, 3], moveData: { endX: 5, endY: 5, endZ: -17, speed: 2.0 } },
+                { type: 'moving', position: [-5, 5, -17], size: [3, 0.5, 3], moveData: { endX: 5, endY: 5, endZ: -17, speed: 1.0 } },
                 { type: 'normal', position: [0, 7, -22], size: [3, 0.5, 3] }
             ],
             checkpoint: [0, 8, -27],
@@ -514,9 +514,9 @@ function getStageConfig(stageNumber) {
             name: "복합 이동",
             platforms: [
                 { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
-                { type: 'moving', position: [0, 2, -7], size: [3, 0.5, 3], moveData: { endX: 6, endY: 4, endZ: -7, speed: 1.8 } },
+                { type: 'moving', position: [0, 2, -7], size: [3, 0.5, 3], moveData: { endX: 6, endY: 4, endZ: -7, speed: 0.9 } },
                 { type: 'ice', position: [8, 5, -12], size: [4, 0.5, 3] },
-                { type: 'moving', position: [-6, 6, -17], size: [3, 0.5, 3], moveData: { endX: 6, endY: 6, endZ: -17, speed: 2.2 } },
+                { type: 'moving', position: [-6, 6, -17], size: [3, 0.5, 3], moveData: { endX: 6, endY: 6, endZ: -17, speed: 1.1 } },
                 { type: 'lava', position: [0, 7, -22], size: [3, 0.5, 3] },
                 { type: 'normal', position: [0, 8, -27], size: [3, 0.5, 3] }
             ],
@@ -558,7 +558,7 @@ function getStageConfig(stageNumber) {
                 { type: 'normal', position: [5, 2, -4], size: [2.5, 0.5, 2.5] },
                 { type: 'ice', position: [8, 3, -8], size: [4, 0.5, 3] },
                 { type: 'slime', position: [4, 4, -13], size: [3, 0.5, 3] },
-                { type: 'moving', position: [-4, 8, -17], size: [3, 0.5, 3], moveData: { endX: 4, endY: 8, endZ: -17, speed: 2.5 } },
+                { type: 'moving', position: [-4, 8, -17], size: [3, 0.5, 3], moveData: { endX: 4, endY: 8, endZ: -17, speed: 1.2 } },
                 { type: 'lava', position: [0, 9, -22], size: [2.5, 0.5, 2.5] },
                 { type: 'jump', position: [0, 10, -27], size: [3, 0.5, 3] },
                 { type: 'normal', position: [0, 19, -32], size: [3, 0.5, 3] }
@@ -587,7 +587,7 @@ function getStageConfig(stageNumber) {
                 { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
                 { type: 'ice', position: [5, 1, -5], size: [4, 0.5, 3] },
                 { type: 'slime', position: [5, 2, -10], size: [3, 0.5, 3] },
-                { type: 'moving', position: [-5, 6, -15], size: [3, 0.5, 3], moveData: { endX: 5, endY: 8, endZ: -15, speed: 2.0 } },
+                { type: 'moving', position: [-5, 6, -15], size: [3, 0.5, 3], moveData: { endX: 5, endY: 8, endZ: -15, speed: 1.0 } },
                 { type: 'lava', position: [0, 9, -20], size: [2.5, 0.5, 2.5] },
                 { type: 'jump', position: [0, 10, -25], size: [3, 0.5, 3] },
                 { type: 'ice', position: [0, 19, -30], size: [5, 0.5, 3] },
@@ -604,7 +604,7 @@ function getStageConfig(stageNumber) {
                 { type: 'jump', position: [0, 1, -5], size: [3, 0.5, 3] },
                 { type: 'ice', position: [6, 10, -10], size: [4, 0.5, 3] },
                 { type: 'slime', position: [6, 11, -15], size: [2.5, 0.5, 2.5] },
-                { type: 'moving', position: [-6, 15, -20], size: [3, 0.5, 3], moveData: { endX: 6, endY: 17, endZ: -20, speed: 2.5 } },
+                { type: 'moving', position: [-6, 15, -20], size: [3, 0.5, 3], moveData: { endX: 6, endY: 17, endZ: -20, speed: 1.2 } },
                 { type: 'lava', position: [0, 18, -25], size: [2.5, 0.5, 2.5] },
                 { type: 'lava', position: [4, 19, -29], size: [2.5, 0.5, 2.5] },
                 { type: 'jump', position: [-4, 20, -33], size: [3, 0.5, 3] },
