@@ -4,7 +4,7 @@
 
 // === CONSTANTS ===
 const GRAVITY = 20.0;
-const JUMP_FORCE = 8.0;
+const JUMP_FORCE = 9.5;
 const TERMINAL_VELOCITY = 50.0;
 const playerSpeed = 1.5;
 const runSpeed = 3.0;
