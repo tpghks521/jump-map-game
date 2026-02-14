@@ -6,8 +6,8 @@
 const GRAVITY = 20.0;
 const JUMP_FORCE = 8.0;
 const TERMINAL_VELOCITY = 50.0;
-const playerSpeed = 2.5;
-const runSpeed = 5.0;
+const playerSpeed = 1.5;
+const runSpeed = 3.0;
 
 // === GAME STATE ===
 const GameState = {
