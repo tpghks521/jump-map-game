@@ -6,8 +6,8 @@
 const GRAVITY = 20.0;
 const JUMP_FORCE = 8.0;
 const TERMINAL_VELOCITY = 50.0;
-const playerSpeed = 3.5;
-const runSpeed = 7.0;
+const playerSpeed = 2.5;
+const runSpeed = 5.0;
 
 // === GAME STATE ===
 const GameState = {
@@ -342,56 +342,294 @@ function clearStage() {
 }
 
 function getStageConfig(stageNumber) {
-    // Stage 1: Tutorial - introduce all platform types
-    if (stageNumber === 1) {
-        return {
-            id: 1,
+    const stages = {
+        1: { // Tutorial
             name: "Tutorial",
             platforms: [
-                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },      // Start
-                { type: 'normal', position: [0, 0, -6], size: [3, 0.5, 3] },     // Jump 1
-                { type: 'slime', position: [0, 1, -11], size: [3, 0.5, 3] },     // Bouncy
-                { type: 'normal', position: [0, 3, -16], size: [3, 0.5, 3] },    // Jump 2
-                { type: 'lava', position: [0, 3, -21], size: [3, 0.5, 3] },      // Danger
-                { type: 'ice', position: [0, 4, -26], size: [3, 0.5, 3] },       // Slippery
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'normal', position: [0, 0, -6], size: [3, 0.5, 3] },
+                { type: 'slime', position: [0, 1, -11], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 3, -16], size: [3, 0.5, 3] },
+                { type: 'lava', position: [0, 3, -21], size: [3, 0.5, 3] },
+                { type: 'ice', position: [0, 4, -26], size: [3, 0.5, 3] }
             ],
             checkpoint: [0, 5, -31],
             spawnPoint: [0, 2, 0]
-        };
-    }
-
-    // Stage 2: Basic jumps
-    if (stageNumber === 2) {
-        return {
-            id: 2,
-            name: "Basic Jumps",
+        },
+        2: { // 계단 오르기
+            name: "계단 오르기",
             platforms: [
                 { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
                 { type: 'normal', position: [0, 1, -5], size: [3, 0.5, 3] },
                 { type: 'normal', position: [0, 2, -10], size: [3, 0.5, 3] },
                 { type: 'normal', position: [0, 3, -15], size: [3, 0.5, 3] },
                 { type: 'normal', position: [0, 4, -20], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 5, -25], size: [3, 0.5, 3] }
             ],
-            checkpoint: [0, 5, -25],
+            checkpoint: [0, 6, -30],
             spawnPoint: [0, 2, 0]
+        },
+        3: { // 슬라임 점프
+            name: "슬라임 점프",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'slime', position: [0, 0, -6], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 3, -11], size: [3, 0.5, 3] },
+                { type: 'slime', position: [0, 3, -16], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 6, -21], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 7, -26],
+            spawnPoint: [0, 2, 0]
+        },
+        4: { // 좌우 지그재그
+            name: "지그재그",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'normal', position: [4, 1, -5], size: [3, 0.5, 3] },
+                { type: 'normal', position: [-4, 2, -10], size: [3, 0.5, 3] },
+                { type: 'normal', position: [4, 3, -15], size: [3, 0.5, 3] },
+                { type: 'normal', position: [-4, 4, -20], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 5, -25], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 6, -30],
+            spawnPoint: [0, 2, 0]
+        },
+        5: { // 점프패드 연습
+            name: "점프패드",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'jump', position: [0, 0, -6], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 8, -11], size: [3, 0.5, 3] },
+                { type: 'jump', position: [0, 8, -16], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 16, -21], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 17, -26],
+            spawnPoint: [0, 2, 0]
+        },
+        6: { // 얼음길
+            name: "미끄러운 길",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'ice', position: [0, 0, -6], size: [5, 0.5, 3] },
+                { type: 'ice', position: [0, 1, -11], size: [5, 0.5, 3] },
+                { type: 'normal', position: [0, 2, -16], size: [3, 0.5, 3] },
+                { type: 'ice', position: [3, 3, -21], size: [4, 0.5, 3] },
+                { type: 'normal', position: [0, 4, -26], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 5, -31],
+            spawnPoint: [0, 2, 0]
+        },
+        7: { // 용암 타이밍
+            name: "용암 타이밍",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'lava', position: [0, 1, -5], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 2, -10], size: [3, 0.5, 3] },
+                { type: 'lava', position: [0, 3, -15], size: [3, 0.5, 3] },
+                { type: 'lava', position: [0, 4, -20], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 5, -25], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 6, -30],
+            spawnPoint: [0, 2, 0]
+        },
+        8: { // 혼합 1
+            name: "혼합 챌린지 1",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'slime', position: [3, 0, -6], size: [3, 0.5, 3] },
+                { type: 'ice', position: [-3, 3, -11], size: [4, 0.5, 3] },
+                { type: 'lava', position: [0, 4, -16], size: [3, 0.5, 3] },
+                { type: 'jump', position: [0, 5, -21], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 13, -26], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 14, -31],
+            spawnPoint: [0, 2, 0]
+        },
+        9: { // 나선형 오르기
+            name: "나선형 계단",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'normal', position: [5, 2, -3], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 4, -6], size: [3, 0.5, 3] },
+                { type: 'normal', position: [-5, 6, -9], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 8, -12], size: [3, 0.5, 3] },
+                { type: 'normal', position: [5, 10, -15], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 12, -18], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 13, -23],
+            spawnPoint: [0, 2, 0]
+        },
+        10: { // 움직이는 발판 도입
+            name: "움직이는 발판",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'moving', position: [0, 2, -7], size: [3, 0.5, 3], moveData: { endX: 5, endY: 2, endZ: -7, speed: 1.5 } },
+                { type: 'normal', position: [8, 3, -12], size: [3, 0.5, 3] },
+                { type: 'moving', position: [-5, 5, -17], size: [3, 0.5, 3], moveData: { endX: 5, endY: 5, endZ: -17, speed: 2.0 } },
+                { type: 'normal', position: [0, 7, -22], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 8, -27],
+            spawnPoint: [0, 2, 0]
+        },
+        11: { // 정밀 점프
+            name: "정밀 점프",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'normal', position: [0, 2, -7], size: [2.5, 0.5, 2.5] },
+                { type: 'normal', position: [4, 4, -12], size: [2.5, 0.5, 2.5] },
+                { type: 'normal', position: [-4, 6, -17], size: [2.5, 0.5, 2.5] },
+                { type: 'slime', position: [0, 8, -22], size: [2.5, 0.5, 2.5] },
+                { type: 'normal', position: [0, 12, -27], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 13, -32],
+            spawnPoint: [0, 2, 0]
+        },
+        12: { // 용암과 얼음
+            name: "불과 얼음",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'lava', position: [0, 1, -5], size: [3, 0.5, 3] },
+                { type: 'ice', position: [0, 2, -10], size: [5, 0.5, 3] },
+                { type: 'lava', position: [0, 3, -15], size: [3, 0.5, 3] },
+                { type: 'ice', position: [4, 4, -20], size: [4, 0.5, 3] },
+                { type: 'normal', position: [0, 5, -25], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 6, -30],
+            spawnPoint: [0, 2, 0]
+        },
+        13: { // 점프패드 연쇄
+            name: "연쇄 발사",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'jump', position: [0, 1, -6], size: [3, 0.5, 3] },
+                { type: 'jump', position: [0, 10, -11], size: [3, 0.5, 3] },
+                { type: 'normal', position: [5, 19, -16], size: [3, 0.5, 3] },
+                { type: 'slime', position: [5, 19, -21], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 23, -26], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 24, -31],
+            spawnPoint: [0, 2, 0]
+        },
+        14: { // 복합 움직임
+            name: "복합 이동",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'moving', position: [0, 2, -7], size: [3, 0.5, 3], moveData: { endX: 6, endY: 4, endZ: -7, speed: 1.8 } },
+                { type: 'ice', position: [8, 5, -12], size: [4, 0.5, 3] },
+                { type: 'moving', position: [-6, 6, -17], size: [3, 0.5, 3], moveData: { endX: 6, endY: 6, endZ: -17, speed: 2.2 } },
+                { type: 'lava', position: [0, 7, -22], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 8, -27], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 9, -32],
+            spawnPoint: [0, 2, 0]
+        },
+        15: { // 수직 타워
+            name: "수직 타워",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'slime', position: [0, 2, -2], size: [3, 0.5, 3] },
+                { type: 'normal', position: [4, 6, -4], size: [2.5, 0.5, 2.5] },
+                { type: 'jump', position: [-4, 8, -6], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 17, -8], size: [2.5, 0.5, 2.5] },
+                { type: 'slime', position: [0, 18, -12], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 22, -16], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 23, -21],
+            spawnPoint: [0, 2, 0]
+        },
+        16: { // 극한의 타이밍
+            name: "극한 타이밍",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'lava', position: [0, 1, -5], size: [2.5, 0.5, 2.5] },
+                { type: 'lava', position: [4, 2, -10], size: [2.5, 0.5, 2.5] },
+                { type: 'lava', position: [-4, 3, -15], size: [2.5, 0.5, 2.5] },
+                { type: 'jump', position: [0, 4, -20], size: [3, 0.5, 3] },
+                { type: 'ice', position: [0, 13, -25], size: [5, 0.5, 3] },
+                { type: 'normal', position: [0, 14, -30], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 15, -35],
+            spawnPoint: [0, 2, 0]
+        },
+        17: { // 미로 경로
+            name: "미로 경로",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'normal', position: [5, 2, -4], size: [2.5, 0.5, 2.5] },
+                { type: 'ice', position: [8, 3, -8], size: [4, 0.5, 3] },
+                { type: 'slime', position: [4, 4, -13], size: [3, 0.5, 3] },
+                { type: 'moving', position: [-4, 8, -17], size: [3, 0.5, 3], moveData: { endX: 4, endY: 8, endZ: -17, speed: 2.5 } },
+                { type: 'lava', position: [0, 9, -22], size: [2.5, 0.5, 2.5] },
+                { type: 'jump', position: [0, 10, -27], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 19, -32], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 20, -37],
+            spawnPoint: [0, 2, 0]
+        },
+        18: { // 속도전
+            name: "속도전",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'lava', position: [0, 1, -4], size: [3, 0.5, 3] },
+                { type: 'lava', position: [0, 2, -8], size: [3, 0.5, 3] },
+                { type: 'lava', position: [0, 3, -12], size: [3, 0.5, 3] },
+                { type: 'slime', position: [0, 4, -16], size: [3, 0.5, 3] },
+                { type: 'lava', position: [0, 7, -20], size: [2.5, 0.5, 2.5] },
+                { type: 'lava', position: [0, 8, -24], size: [2.5, 0.5, 2.5] },
+                { type: 'normal', position: [0, 9, -28], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 10, -33],
+            spawnPoint: [0, 2, 0]
+        },
+        19: { // 종합 시험
+            name: "종합 시험",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'ice', position: [5, 1, -5], size: [4, 0.5, 3] },
+                { type: 'slime', position: [5, 2, -10], size: [3, 0.5, 3] },
+                { type: 'moving', position: [-5, 6, -15], size: [3, 0.5, 3], moveData: { endX: 5, endY: 8, endZ: -15, speed: 2.0 } },
+                { type: 'lava', position: [0, 9, -20], size: [2.5, 0.5, 2.5] },
+                { type: 'jump', position: [0, 10, -25], size: [3, 0.5, 3] },
+                { type: 'ice', position: [0, 19, -30], size: [5, 0.5, 3] },
+                { type: 'slime', position: [5, 20, -35], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 24, -40], size: [3, 0.5, 3] }
+            ],
+            checkpoint: [0, 25, -45],
+            spawnPoint: [0, 2, 0]
+        },
+        20: { // 최종 도전
+            name: "최종 도전",
+            platforms: [
+                { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
+                { type: 'jump', position: [0, 1, -5], size: [3, 0.5, 3] },
+                { type: 'ice', position: [6, 10, -10], size: [4, 0.5, 3] },
+                { type: 'slime', position: [6, 11, -15], size: [2.5, 0.5, 2.5] },
+                { type: 'moving', position: [-6, 15, -20], size: [3, 0.5, 3], moveData: { endX: 6, endY: 17, endZ: -20, speed: 2.5 } },
+                { type: 'lava', position: [0, 18, -25], size: [2.5, 0.5, 2.5] },
+                { type: 'lava', position: [4, 19, -29], size: [2.5, 0.5, 2.5] },
+                { type: 'jump', position: [-4, 20, -33], size: [3, 0.5, 3] },
+                { type: 'ice', position: [0, 29, -38], size: [5, 0.5, 3] },
+                { type: 'slime', position: [0, 30, -43], size: [3, 0.5, 3] },
+                { type: 'normal', position: [0, 35, -48], size: [4, 0.5, 4] }
+            ],
+            checkpoint: [0, 36, -53],
+            spawnPoint: [0, 2, 0]
+        }
+    };
+
+    const config = stages[stageNumber];
+    if (config) {
+        return {
+            id: stageNumber,
+            name: config.name,
+            platforms: config.platforms,
+            checkpoint: config.checkpoint,
+            spawnPoint: config.spawnPoint
         };
     }
 
-    // Stage 3-20: More stages (to be added)
-    // For now, repeat stage 2 pattern
-    return {
-        id: stageNumber,
-        name: `Stage ${stageNumber}`,
-        platforms: [
-            { type: 'normal', position: [0, 0, 0], size: [4, 0.5, 4] },
-            { type: 'normal', position: [3, 1, -5], size: [3, 0.5, 3] },
-            { type: 'slime', position: [-3, 2, -10], size: [3, 0.5, 3] },
-            { type: 'jump', position: [0, 3, -15], size: [3, 0.5, 3] },
-            { type: 'normal', position: [0, 8, -20], size: [3, 0.5, 3] },
-        ],
-        checkpoint: [0, 9, -25],
-        spawnPoint: [0, 2, 0]
-    };
+    // Fallback for invalid stage numbers
+    return stages[1];
 }
 
 // ========================================
